@@ -1,5 +1,5 @@
 <?php
-namespace Utilities\Renderer;
+namespace DeltaTools\Utilities\Renderer;
 
 class Renderer
 {
