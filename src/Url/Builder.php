@@ -27,6 +27,8 @@ class Builder
     public function setParam($name, $value)
     {
         $this->params[$name] = $value;
+
+        return $this;
     }
 
     public function deleteParam($name)
@@ -36,6 +38,8 @@ class Builder
         }
 
         unset($this->params[$name]);
+
+        return $this;
     }
 
     public function getUrl()
