@@ -2,6 +2,7 @@
     "name": "devunplugged/delta-tools",
     "description": "tools for delta webpage",
     "type": "library",
+    "varsion": "0.1",
     "autoload": {
         "psr-4": {
             "DeltaTools\\": "src/"
