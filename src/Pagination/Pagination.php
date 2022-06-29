@@ -1,5 +1,5 @@
 <?php
-namespace DeltaTools\Utilities\Pagination;
+namespace DeltaTools\Pagination;
 
 class Pagination
 {
