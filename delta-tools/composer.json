@@ -1,0 +1,17 @@
+{
+    "name": "devunplugged/delta-tools",
+    "description": "tools for delta webpage",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "DeltaTools\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "devunplugged",
+            "email": "66313338+devunplugged@users.noreply.github.com"
+        }
+    ],
+    "require": {}
+}
