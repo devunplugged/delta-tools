@@ -54,8 +54,20 @@ class Builder
         $sign = '?';
 
         foreach($this->params as $paramName => $paramValue){
-            $url .= $sign . $paramName . '=' . $paramValue;
-            $sign = '&';
+
+            if(is_array($paramValue)){
+
+                foreach($paramValue as $value){
+                    $url .= $sign . $paramName . '=' . $value;
+                    $sign = '&';
+                }
+                
+            }else{
+                $url .= $sign . $paramName . '=' . $paramValue;
+                $sign = '&';
+            }
+
+            
         }
 
         return $url;
