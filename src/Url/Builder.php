@@ -42,8 +42,12 @@ class Builder
         return $this;
     }
 
-    public function getUrl()
+    public function getUrl(bool $full = true)
     {
+        if(!$full){
+            return $this->url;
+        }
+
         $url = $this->url;
         $sign = '?';
 
@@ -53,5 +57,14 @@ class Builder
         }
 
         return $url;
+    }
+
+    public function getParamsHiddenFields()
+    {
+        $fileds = '';
+        foreach($this->params as $paramName => $paramValue){
+            $fileds .= '<input type="hidden" name="'.htmlentities($paramName).'" value="'.htmlentities($paramValue).'">';
+        }
+        return $fileds;
     }
 }
