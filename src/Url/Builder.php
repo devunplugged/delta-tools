@@ -63,7 +63,14 @@ class Builder
     {
         $fileds = '';
         foreach($this->params as $paramName => $paramValue){
-            $fileds .= '<input type="hidden" name="'.htmlentities($paramName).'" value="'.htmlentities($paramValue).'">';
+            if(is_array($paramValue)){
+                foreach($paramValue as $value){
+                    $fileds .= '<input type="hidden" name="'.htmlentities($paramName).'" value="'.htmlentities($value).'">';
+                }
+            }else{
+                $fileds .= '<input type="hidden" name="'.htmlentities($paramName).'" value="'.htmlentities($paramValue).'">';
+            }
+            
         }
         return $fileds;
     }
