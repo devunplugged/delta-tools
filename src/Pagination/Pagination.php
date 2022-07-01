@@ -88,9 +88,20 @@ class Pagination
             if($propName == 'strona'){
                 continue;
             }
-            $link .= $sign . $this->options['prefix'] . $propName . '=' . $propValue;
-            $appendedProps[] = $this->options['prefix'] . $propName;
-            $sign = '&';
+
+            if(is_array($propValue)){
+                foreach($propValue as $value){
+                    $link .= $sign . $this->options['prefix'] . $propName . '=' . $value;
+                    $sign = '&';
+                }
+                $appendedProps[] = $this->options['prefix'] . $propName;
+            }else{
+                $link .= $sign . $this->options['prefix'] . $propName . '=' . $propValue;
+                $appendedProps[] = $this->options['prefix'] . $propName;
+                $sign = '&';
+            }
+            
+            
         }
 
         $link .= $sign . $this->options['prefix'] . 'strona=' . $pageNumber;
@@ -123,8 +134,17 @@ print_r($appendedProps);
                 continue;
             }
 
-            $link .= $sign . $this->options['prefix'] . $propName . '=' . $propValue;
-            $sign = '&';
+            if(is_array($propValue)){
+                foreach($propValue as $value){
+                    $link .= $sign . $this->options['prefix'] . $propName . '=' . $value;
+                    $sign = '&';
+                }
+            }else{
+                $link .= $sign . $this->options['prefix'] . $propName . '=' . $propValue;
+                $sign = '&';
+            }
+
+            
         }
 
         if($this->searchProps['sortowanie'] == $sortField){
