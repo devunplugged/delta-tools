@@ -34,7 +34,9 @@ class Builder
     public function deleteParam($name)
     {
         if (!isset($this->params[$name])) {
-            throw new Exception('No param found!');
+            //throw new Exception('No param found! ('.$name.')');
+            //stay silent (?)
+            return $this;
         }
 
         unset($this->params[$name]);
@@ -65,7 +67,7 @@ class Builder
         foreach($this->params as $paramName => $paramValue){
             if(is_array($paramValue)){
                 foreach($paramValue as $value){
-                    $fileds .= '<input type="hidden" name="'.htmlentities($paramName).'" value="'.htmlentities($value).'">';
+                    $fileds .= '<input type="hidden" name="'.htmlentities($paramName).'[]" value="'.htmlentities($value).'">';
                 }
             }else{
                 $fileds .= '<input type="hidden" name="'.htmlentities($paramName).'" value="'.htmlentities($paramValue).'">';
