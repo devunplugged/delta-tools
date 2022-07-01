@@ -91,7 +91,7 @@ class Pagination
 
             if(is_array($propValue)){
                 foreach($propValue as $value){
-                    $link .= $sign . $this->options['prefix'] . $propName . '=' . $value;
+                    $link .= $sign . $this->options['prefix'] . $propName . '[]=' . $value;
                     $sign = '&';
                 }
                 $appendedProps[] = $this->options['prefix'] . $propName;
@@ -136,7 +136,7 @@ print_r($appendedProps);
 
             if(is_array($propValue)){
                 foreach($propValue as $value){
-                    $link .= $sign . $this->options['prefix'] . $propName . '=' . $value;
+                    $link .= $sign . $this->options['prefix'] . $propName . '[]=' . $value;
                     $sign = '&';
                 }
             }else{
