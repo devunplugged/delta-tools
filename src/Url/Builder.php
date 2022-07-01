@@ -58,10 +58,10 @@ class Builder
             if(is_array($paramValue)){
 
                 foreach($paramValue as $value){
-                    $url .= $sign . $paramName . '=' . $value;
+                    $url .= $sign . $paramName . '[]=' . $value;
                     $sign = '&';
                 }
-                
+
             }else{
                 $url .= $sign . $paramName . '=' . $paramValue;
                 $sign = '&';
