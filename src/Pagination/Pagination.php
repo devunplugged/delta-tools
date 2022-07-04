@@ -113,8 +113,17 @@ print_r($appendedProps);
             if(in_array($getName, $appendedProps)){
                 continue;
             }
-            $link .= $sign . $getName . '=' . $getValue;
-            $sign = '&';
+
+            if(is_array($getValue)){
+                foreach($getValue as $value){
+                    $link .= $sign . $getName . '[]=' . $value;
+                    $sign = '&';
+                }
+            }else{
+                $link .= $sign . $getName . '=' . $getValue;
+                $sign = '&';
+            }
+            
         }
 
         return $link;
