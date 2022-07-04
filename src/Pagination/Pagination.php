@@ -106,7 +106,7 @@ class Pagination
 
         $link .= $sign . $this->options['prefix'] . 'strona=' . $pageNumber;
         $appendedProps[] = $this->options['prefix'] . 'strona';
-print_r($appendedProps);
+        //print_r($appendedProps);
 
         //add props from url
         foreach($_GET as $getName => $getValue){
