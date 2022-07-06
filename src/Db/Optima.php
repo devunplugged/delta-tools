@@ -1,6 +1,7 @@
 <?php
 namespace DeltaTools\Db;
 
+global $base_dir;
 require_once $base_dir . 'db/db_mssql.inc';
 
 class Optima
