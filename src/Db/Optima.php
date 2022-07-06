@@ -11,7 +11,7 @@ class Optima
     private function __construct()
     {
         if(!$this->db){
-            $this->db = new ps_mssqlDB();
+            $this->db = new \ps_mssqlDB();
             $this->db->connect();
         }
     }
