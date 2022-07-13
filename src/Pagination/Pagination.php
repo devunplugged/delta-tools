@@ -77,10 +77,8 @@ class Pagination
 
     private function getPrefix($propName)
     {
-        echo "<br>getPrefix";
-        print_r($this->options);
         $key = array_search($propName, $this->options['prefix-exceptions']);
-        if($key){
+        if($key !== false){
             return $this->options['prefix-exceptions-sub'][$key];
         }
 
