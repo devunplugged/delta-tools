@@ -9,6 +9,8 @@ class Pagination
         'numberOfResults' => 25,
         'wrapOn' => 5,
         'prefix' => '',
+        'prefix-exceptions' => [],
+        'prefix-exceptions-sub' => [],
     ];
 
     private $searchProps = [
@@ -73,6 +75,16 @@ class Pagination
 
     }
 
+    private function getPrefix($propName)
+    {
+        $key = array_search($propName, $this->options['prefix-exceptions']);
+        if($key){
+            return $this->options['prefix-exceptions-sub'][$key];
+        }
+
+        return $this->options['prefix'];
+    }
+
     private function getPageLink($pageNumber)
     {
         $link = $this->url;
@@ -89,15 +101,17 @@ class Pagination
                 continue;
             }
 
+            $prefix = $this->getPrefix($propName);
+
             if(is_array($propValue)){
                 foreach($propValue as $value){
-                    $link .= $sign . $this->options['prefix'] . $propName . '[]=' . $value;
+                    $link .= $sign . $prefix . $propName . '[]=' . $value;
                     $sign = '&';
                 }
-                $appendedProps[] = $this->options['prefix'] . $propName;
+                $appendedProps[] = $prefix . $propName;
             }else{
-                $link .= $sign . $this->options['prefix'] . $propName . '=' . $propValue;
-                $appendedProps[] = $this->options['prefix'] . $propName;
+                $link .= $sign . $prefix . $propName . '=' . $propValue;
+                $appendedProps[] = $prefix . $propName;
                 $sign = '&';
             }
             
@@ -143,13 +157,15 @@ class Pagination
                 continue;
             }
 
+            $prefix = $this->getPrefix($propName);
+
             if(is_array($propValue)){
                 foreach($propValue as $value){
-                    $link .= $sign . $this->options['prefix'] . $propName . '[]=' . $value;
+                    $link .= $sign . $prefix . $propName . '[]=' . $value;
                     $sign = '&';
                 }
             }else{
-                $link .= $sign . $this->options['prefix'] . $propName . '=' . $propValue;
+                $link .= $sign . $prefix . $propName . '=' . $propValue;
                 $sign = '&';
             }
 
