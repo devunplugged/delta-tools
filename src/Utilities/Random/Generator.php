@@ -15,7 +15,7 @@ class Generator
         return $randomString;
     }
 
-    public static function secure(int $bytes)
+    public static function secure(int $bytes = 5)
     {
         return bin2hex(random_bytes($bytes));
     }
