@@ -6,6 +6,7 @@ class Once
     public static function get()
     {
         $_SESSION['form-once'] = \DeltaTools\Utilities\Random\Generator::simple();
+        return $_SESSION['form-once'];
     }
 
     public static function check($once)
