@@ -1,6 +1,6 @@
 <?php
 
-namespace DeltaTools\Pagination;
+namespace DeltaTools\Forms;
 
 class Validator
 {
