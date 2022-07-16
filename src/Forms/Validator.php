@@ -12,9 +12,30 @@ class Validator
         return $this->generalErrors;
     }
 
+    public function getGeneralErrorsList()
+    {
+        $list = '<ul>';
+        foreach($this->generalErrors as $generalError){
+            $list .= $generalError;
+        }
+        return $list . '</ul>';
+    }
+
     public function getValidationErrors()
     {
         return $this->validationErrors;
+    }
+
+    public function getValidationErrorList($key)
+    {
+        if(!isset($this->validationErrors[$key])){
+            return;
+        }
+        $list = '<ul>';
+        foreach($this->validationErrors[$key] as $validationError){
+            $list .= $validationError;
+        }
+        return $list . '</ul>';
     }
     
     public function once($once)
