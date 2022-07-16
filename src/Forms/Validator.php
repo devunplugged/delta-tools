@@ -21,6 +21,11 @@ class Validator
         return $list . '</ul>';
     }
 
+    public function hasGeneralErrors()
+    {
+        return !empty($this->generalErrors);
+    }
+
     public function getValidationErrors()
     {
         return $this->validationErrors;
