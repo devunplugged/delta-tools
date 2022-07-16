@@ -35,6 +35,14 @@ class Validator
         return true;
     }
 
+    public function isValid()
+    {
+        if(!empty($this->generalErrors) || !empty($this->validationErrors)){
+            return false;
+        }
+        return true;
+    }
+
     public function numberRange($key, $value, $from = 'INF', $to = 'INF')
     {
         if (!$this->isNumber($key, $value)) {
