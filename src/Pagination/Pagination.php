@@ -155,23 +155,48 @@ class Pagination
             $sign = '&';
         }
 
+        $appendedProps = [];
+
         foreach($this->searchProps as $propName => $propValue){
-            if( in_array($propName, ['strona','sortowanie','kierunek-sortowania']) ){
+            
+            $prefix = $this->getPrefix($propName);
+            
+            if( in_array($propName, [$prefix . 'strona', $prefix . 'sortowanie', $prefix . 'kierunek-sortowania']) ){
                 continue;
             }
 
-            $prefix = $this->getPrefix($propName);
+            
 
             if(is_array($propValue)){
                 foreach($propValue as $value){
                     $link .= $sign . $prefix . $propName . '[]=' . $value;
                     $sign = '&';
                 }
+                $appendedProps[] = $prefix . $propName;
             }else{
                 $link .= $sign . $prefix . $propName . '=' . $propValue;
+                $appendedProps[] = $prefix . $propName;
                 $sign = '&';
             }
 
+            
+        }
+
+        //add props from url
+        foreach($_GET as $getName => $getValue){
+            if(in_array($getName, $appendedProps)){
+                continue;
+            }
+
+            if(is_array($getValue)){
+                foreach($getValue as $value){
+                    $link .= $sign . $getName . '[]=' . $value;
+                    $sign = '&';
+                }
+            }else{
+                $link .= $sign . $getName . '=' . $getValue;
+                $sign = '&';
+            }
             
         }
 
