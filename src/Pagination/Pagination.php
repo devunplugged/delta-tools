@@ -97,11 +97,14 @@ class Pagination
 
         //set all current object props
         foreach($this->searchProps as $propName => $propValue){
-            if($propName == 'strona'){
+
+            $prefix = $this->getPrefix($propName);
+
+            if($propName == $prefix . 'strona'){
                 continue;
             }
 
-            $prefix = $this->getPrefix($propName);
+            
 
             if(is_array($propValue)){
                 foreach($propValue as $value){
