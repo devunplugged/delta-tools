@@ -100,7 +100,7 @@ class Pagination
 
             $prefix = $this->getPrefix($propName);
 
-            if($propName == $prefix . 'strona'){
+            if($propName == 'strona'){
                 continue;
             }
 
@@ -161,7 +161,7 @@ class Pagination
             
             $prefix = $this->getPrefix($propName);
             
-            if( in_array($propName, [$prefix . 'strona', $prefix . 'sortowanie', $prefix . 'kierunek-sortowania']) ){
+            if( in_array($propName, ['strona', 'sortowanie', 'kierunek-sortowania']) ){
                 continue;
             }
 
