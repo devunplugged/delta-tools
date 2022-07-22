@@ -9,10 +9,10 @@ class Builder
     private $url = '';
     private $params = [];
 
-    public function __construct()
+    public function __construct(?string $url = null,?array $params = null)
     {
-        $this->url = strtok($_SERVER["REQUEST_URI"], '?');
-        $this->params = $_GET;
+        $this->url = $url !== null ? $url : strtok($_SERVER["REQUEST_URI"], '?');
+        $this->params = $params !== null ? $params : $_GET;
     }
 
     public function getParam($name)

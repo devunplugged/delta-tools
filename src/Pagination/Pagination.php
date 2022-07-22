@@ -149,6 +149,7 @@ class Pagination
     public function getSortLink($linkName, $sortField)
     {
         $link = $this->url;
+        $urlBuilder = new \DeltaTools\Url\Builder($this->url);
 
         $sign = '?';
         if(strpos($this->url, '?') !== false){
@@ -175,11 +176,13 @@ class Pagination
 
             if(is_array($propValue)){
                 foreach($propValue as $value){
+                    $urlBuilder->setParam($propName . '[]', $value);
                     $link .= $sign . $propName . '[]=' . $value;
                     $sign = '&';
                 }
                 $appendedProps[] = $propName;
             }else{
+                $urlBuilder->setParam($propName, $propValue);
                 $link .= $sign . $propName . '=' . $propValue;
                 $appendedProps[] = $propName;
                 $sign = '&';
@@ -197,10 +200,12 @@ class Pagination
 
             if(is_array($getValue)){
                 foreach($getValue as $value){
+                    $urlBuilder->setParam($getName . '[]', $value);
                     $link .= $sign . $getName . '[]=' . $value;
                     $sign = '&';
                 }
             }else{
+                $urlBuilder->setParam($getName, $getValue);
                 $link .= $sign . $getName . '=' . $getValue;
                 $sign = '&';
             }
@@ -209,15 +214,27 @@ class Pagination
 
         if($this->searchProps['sortowanie'] == $sortField){
             if($this->searchProps['kierunek-sortowania'] == 'ASC'){
+                $urlBuilder->setParam( $this->options['prefix'] . 'sortowanie', $sortField);
+                $urlBuilder->setParam( $this->options['prefix'] . 'kierunek-sortowania', 'DESC');
+                $urlBuilder->setParam( $this->options['prefix'] . 'strona', 1);
                 $link .= $sign . $this->options['prefix'] . 'sortowanie=' . $sortField . '&' . $this->options['prefix'] . 'kierunek-sortowania=DESC&' . $this->options['prefix'] . 'strona=1';
                 $link = '<a class="sl-sort-link sl-sort-link-asc" href="'.$link.'">'.$linkName.'</a>';
+                $link = '<a class="sl-sort-link sl-sort-link-asc" href="'.$urlBuilder->getUrl().'">'.$linkName.'</a>';
             }else{
+                $urlBuilder->setParam( $this->options['prefix'] . 'sortowanie', $sortField);
+                $urlBuilder->setParam( $this->options['prefix'] . 'kierunek-sortowania', 'ASC');
+                $urlBuilder->setParam( $this->options['prefix'] . 'strona', 1);
                 $link .= $sign . $this->options['prefix'] . 'sortowanie=' . $sortField . '&' . $this->options['prefix'] . 'kierunek-sortowania=ASC&' . $this->options['prefix'] . 'strona=1';
                 $link = '<a class="sl-sort-link sl-sort-link-desc" href="'.$link.'">'.$linkName.'</a>';
+                $link = '<a class="sl-sort-link sl-sort-link-desc" href="'.$urlBuilder->getUrl().'">'.$linkName.'</a>';
             }
         }else{
+            $urlBuilder->setParam( $this->options['prefix'] . 'sortowanie', $sortField);
+            $urlBuilder->setParam( $this->options['prefix'] . 'kierunek-sortowania', 'ASC');
+            $urlBuilder->setParam( $this->options['prefix'] . 'strona', 1);
             $link .= $sign . $this->options['prefix'] . 'sortowanie=' . $sortField . '&' . $this->options['prefix'] . 'kierunek-sortowania=ASC&' . $this->options['prefix'] . 'strona=1';
             $link = '<a class="sl-sort-link" href="'.$link.'">'.$linkName.'</a>';
+            $link = '<a class="sl-sort-link" href="'.$urlBuilder->getUrl().'">'.$linkName.'</a>';
         }
         
         return $link;
