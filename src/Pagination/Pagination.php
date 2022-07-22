@@ -184,10 +184,12 @@ class Pagination
 
         //add props from url
         foreach($_GET as $getName => $getValue){
+            echo "<h2>$getName </h2>";
             if(in_array($getName, $appendedProps)){
+                echo "<h2>Skip</h2>";
                 continue;
             }
-
+            echo "<h2>Append</h2>";
             if(is_array($getValue)){
                 foreach($getValue as $value){
                     $link .= $sign . $getName . '[]=' . $value;
