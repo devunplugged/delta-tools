@@ -87,13 +87,7 @@ class Pagination
 
     private function getPageLink($pageNumber)
     {
-        $link = $this->url;
         $urlBuilder = new \DeltaTools\Url\Builder($this->url);
-
-        // $sign = '?';
-        // if(strpos($this->url, '?') !== false){
-        //     $sign = '&';
-        // }
         $appendedProps = [];
 
         //set all current object props
@@ -108,28 +102,12 @@ class Pagination
             
             $urlBuilder->setParam($propName, $propValue);
             $appendedProps[] = $prefix . $propName;
-
-            // if(is_array($propValue)){
-            //     foreach($propValue as $value){
-            //         $urlBuilder->setParam($propName . '[]', $value);
-            //         // $link .= $sign . $prefix . $propName . '[]=' . $value;
-            //         // $sign = '&';
-            //     }
-            //     $appendedProps[] = $prefix . $propName;
-            // }else{
-            //     $urlBuilder->setParam($propName, $propValue);
-            //     //$link .= $sign . $prefix . $propName . '=' . $propValue;
-            //     $appendedProps[] = $prefix . $propName;
-            //     //$sign = '&';
-            // }
-            
             
         }
 
         $urlBuilder->setParam( $this->options['prefix'] . 'strona', $pageNumber);
-        //$link .= $sign . $this->options['prefix'] . 'strona=' . $pageNumber;
         $appendedProps[] = $this->options['prefix'] . 'strona';
-        //print_r($appendedProps);
+
 
         //add props from url
         foreach($_GET as $getName => $getValue){
@@ -138,17 +116,6 @@ class Pagination
             }
 
             $urlBuilder->setParam($getName, $getValue);
-            // if(is_array($getValue)){
-            //     foreach($getValue as $value){
-            //         $urlBuilder->setParam($getName . '[]', $value);
-            //         // $link .= $sign . $getName . '[]=' . $value;
-            //         // $sign = '&';
-            //     }
-            // }else{
-            //     $urlBuilder->setParam($getName, $getValue);
-            //     // $link .= $sign . $getName . '=' . $getValue;
-            //     // $sign = '&';
-            // }
             
         }
 
@@ -178,16 +145,6 @@ class Pagination
 
             $urlBuilder->setParam($propName, $propValue);
             $appendedProps[] = $propName;
-
-            // if(is_array($propValue)){
-            //     foreach($propValue as $value){
-            //         $urlBuilder->setParam($propName . '[]', $value);
-            //     }
-            //     $appendedProps[] = $propName;
-            // }else{
-            //     $urlBuilder->setParam($propName, $propValue);
-            //     $appendedProps[] = $propName;
-            // }
         }
 
         //add props from url
@@ -198,14 +155,6 @@ class Pagination
             }
 
             $urlBuilder->setParam($getName, $getValue);
-
-            // if(is_array($getValue)){
-            //     foreach($getValue as $value){
-            //         $urlBuilder->setParam($getName . '[]', $value);
-            //     }
-            // }else{
-            //     $urlBuilder->setParam($getName, $getValue);
-            // }
             
         }
 
