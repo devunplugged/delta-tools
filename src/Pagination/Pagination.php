@@ -156,12 +156,18 @@ class Pagination
         }
 
         $appendedProps = [];
+        //add values to be skipped
+        $appendedProps[] = $this->getPrefix('strona') . 'strona';
+        $appendedProps[] = $this->getPrefix('sortowanie') . 'sortowanie';
+        $appendedProps[] = $this->getPrefix('kierunek-sortowania') . 'kierunek-sortowania';
+
 
         foreach($this->searchProps as $propName => $propValue){
             
             $prefix = $this->getPrefix($propName);
+            $propName = $prefix . $propName;
             
-            if( in_array($propName, ['strona', 'sortowanie', 'kierunek-sortowania']) ){
+            if( in_array($propName, $appendedProps) ){
                 continue;
             }
 
@@ -169,13 +175,13 @@ class Pagination
 
             if(is_array($propValue)){
                 foreach($propValue as $value){
-                    $link .= $sign . $prefix . $propName . '[]=' . $value;
+                    $link .= $sign . $propName . '[]=' . $value;
                     $sign = '&';
                 }
-                $appendedProps[] = $prefix . $propName;
+                $appendedProps[] = $propName;
             }else{
-                $link .= $sign . $prefix . $propName . '=' . $propValue;
-                $appendedProps[] = $prefix . $propName;
+                $link .= $sign . $propName . '=' . $propValue;
+                $appendedProps[] = $propName;
                 $sign = '&';
             }
 
@@ -184,12 +190,11 @@ class Pagination
 
         //add props from url
         foreach($_GET as $getName => $getValue){
-            echo "<h2>$getName </h2>";
+
             if(in_array($getName, $appendedProps)){
-                echo "<h2>Skip</h2>";
                 continue;
             }
-            echo "<h2>Append</h2>";
+
             if(is_array($getValue)){
                 foreach($getValue as $value){
                     $link .= $sign . $getName . '[]=' . $value;
