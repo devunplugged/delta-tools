@@ -26,7 +26,23 @@ class Builder
 
     public function setParam($name, $value)
     {
-        $this->params[$name] = $value;
+        // $this->params[$name] = $value;
+
+        // return $this;
+
+        if(is_array($value)){
+
+            $this->params[$name] = [];
+
+            foreach($value as $key => $val){
+                $this->params[$name][$key] = $val;
+            }
+
+        }else{
+
+            $this->params[$name] = $value;
+
+        }
 
         return $this;
     }
@@ -57,8 +73,8 @@ class Builder
 
             if(is_array($paramValue)){
 
-                foreach($paramValue as $value){
-                    $url .= $sign . $paramName . '[]=' . $value;
+                foreach($paramValue as $key => $value){
+                    $url .= $sign . $paramName . '['.$key.']=' . $value;
                     $sign = '&';
                 }
 
@@ -78,8 +94,8 @@ class Builder
         $fileds = '';
         foreach($this->params as $paramName => $paramValue){
             if(is_array($paramValue)){
-                foreach($paramValue as $value){
-                    $fileds .= '<input type="hidden" name="'.htmlentities($paramName).'[]" value="'.htmlentities($value).'">';
+                foreach($paramValue as $key => $value){
+                    $fileds .= '<input type="hidden" name="'.htmlentities($paramName).'['.$key.']" value="'.htmlentities($value).'">';
                 }
             }else{
                 $fileds .= '<input type="hidden" name="'.htmlentities($paramName).'" value="'.htmlentities($paramValue).'">';
