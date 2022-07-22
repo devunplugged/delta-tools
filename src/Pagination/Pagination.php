@@ -142,7 +142,7 @@ class Pagination
                     // $sign = '&';
                 }
             }else{
-                $urlBuilder->setParam($getName, $value);
+                $urlBuilder->setParam($getName, $getValue);
                 // $link .= $sign . $getName . '=' . $getValue;
                 // $sign = '&';
             }
