@@ -16,7 +16,7 @@ class Validator
     {
         $list = '<ul>';
         foreach($this->generalErrors as $generalError){
-            $list .= $generalError;
+            $list .= '<li>' . $generalError . '</li>';
         }
         return $list . '</ul>';
     }
