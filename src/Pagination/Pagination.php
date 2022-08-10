@@ -99,9 +99,9 @@ class Pagination
                 continue;
             }
 
-            
+            $propName = $prefix . $propName;
             $urlBuilder->setParam($propName, $propValue);
-            $appendedProps[] = $prefix . $propName;
+            $appendedProps[] = $propName;
             
         }
 
