@@ -17,7 +17,7 @@ class Json
         exit;
     }
 
-    public static function fail(int $code, string $message = 'error', array $errors = [], int $customCode = 0)
+    public static function fail(int $code, array $errors = [], int $customCode = 0, string $message = 'error')
     {
         http_response_code($code);
         header('Content-Type: application/json; charset=utf-8');
@@ -32,7 +32,7 @@ class Json
         }
 
         if($customCode !== 0){
-            $response['customCode'] = $customCode;
+            $response['error-code'] = $customCode;
         }
 
         echo json_encode($response);
