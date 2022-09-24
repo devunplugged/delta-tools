@@ -4,9 +4,10 @@ namespace DeltaTools\Utilities\Response;
 
 class Json
 {
-    public static function success($data)
+    public static function success(array $data, int $code = 200)
     {
-        http_response_code(200);
+        $code = ($code < 200 || $code > 299) ? 200 : $code;
+        http_response_code($code);
         header('Content-Type: application/json; charset=utf-8');
         echo json_encode($data);
         exit;
