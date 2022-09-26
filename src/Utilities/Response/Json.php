@@ -11,7 +11,7 @@ class Json
         header('Content-Type: application/json; charset=utf-8');
 
         $data['message'] = $message;
-        $data['response-code'] = $code;
+        $data['response_code'] = $code;
 
         echo json_encode($data);
         exit;
@@ -24,7 +24,7 @@ class Json
 
         $response = [
             'message' => $message, 
-            'response-code' => $code,
+            'response_code' => $code,
         ];
 
         if(!empty($errors)){
@@ -32,7 +32,7 @@ class Json
         }
 
         if($customCode !== 0){
-            $response['error-code'] = $customCode;
+            $response['error_code'] = $customCode;
         }
 
         echo json_encode($response);
