@@ -20,7 +20,7 @@ class Validator
     /**
      * Uruchamia wiele walidacji podanej wartosci
      */
-    public function validate($key, $values, $validations = '', $validationArgs = [], $customMessages = [], $isGeneral = false )
+    public function validate($key, $values, $validations = '', $customMessages = [], $validationArgs = [], $isGeneral = false )
     {
         $validations = explode('|', $validations);
 
