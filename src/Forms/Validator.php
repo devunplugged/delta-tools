@@ -50,7 +50,7 @@ class Validator
                 $this->$validation(
                     $key, 
                     $values, 
-                    isset($customMessages[$validation]) ?? '',
+                    $customMessages[$validation] ?? '',
                     $isGeneral,
                     ...$validationArgs[$validation]
                 );
@@ -58,7 +58,7 @@ class Validator
                 $this->$validation(
                     $key, 
                     $values, 
-                    isset($customMessages[$validation]) ?? '',
+                    $customMessages[$validation] ?? '',
                     $isGeneral
                 );
             }
