@@ -46,7 +46,7 @@ class Validator
                 continue;
             }
 
-            if($validationArgs[$validation]){
+            if(isset($validationArgs[$validation])){
                 $this->$validation(
                     $key, 
                     $values, 
