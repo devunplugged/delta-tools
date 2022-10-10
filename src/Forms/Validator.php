@@ -88,6 +88,11 @@ class Validator
      */
     public function isNumber($key, $values, $customMessage = '', $isGeneral = false)
     {
+        //jesli nie istnieje to ok; mogl nie byc wymagany
+        if(!isset($values[$key])){
+            return true;
+        }
+
         if (!is_numeric($values[$key])) {
 
             if(!$isGeneral){
@@ -106,8 +111,9 @@ class Validator
      */
     public function numberRange($key, $values, $customMessage = '', $isGeneral = false, $from = 'INF', $to = 'INF')
     {
-        if (!$this->isNumber($key, $values[$key])) {
-            return false;
+        //jesli nie istnieje to ok; mogl nie byc wymagany
+        if(!isset($values[$key])){
+            return true;
         }
 
         if (
