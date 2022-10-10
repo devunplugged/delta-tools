@@ -18,9 +18,26 @@ class Validator
     }
 
     /**
-     * Uruchamia wiele walidacji podanej wartosci
+     * Uruchamia wiele walidacji dla wielu podanych zmiennych (kluczy tabeli $values)
+     * np. validationsArray
+     * [
+     *      ['supplier_id', 'required|isNumber', ['required' => 'supplier_id jest wymagane','isNumber' => 'supplier_id musi byc liczbą'], [], true]
+     *      .
+     *      .
+     *      .
+     * ]
      */
-    public function validate($key, $values, $validations = '', $customMessages = [], $validationArgs = [], $isGeneral = false )
+    public function validate($values, $validationsArray )
+    {
+        foreach($validationsArray as $validationElement){
+            $this->validateElement($validationElement[0], $values, $validationElement[1], $validationElement[2], $validationElement[3], $validationElement[4]);
+        }
+    }
+
+    /**
+     * Uruchamia wiele walidacji podanej wartosci tablicy $values
+     */
+    public function validateElement($key, $values, $validations = '', $customMessages = [], $validationArgs = [], $isGeneral = false )
     {
         $validations = explode('|', $validations);
 
