@@ -50,7 +50,7 @@ class Validator
                 $this->$validation(
                     $key, 
                     $values, 
-                    $customMessages[$validation] ?? '',
+                    $customMessages[$validation] ?? null,
                     $isGeneral,
                     $validationArgs[$validation]
                 );
@@ -58,7 +58,7 @@ class Validator
                 $this->$validation(
                     $key, 
                     $values, 
-                    $customMessages[$validation] ?? '',
+                    $customMessages[$validation] ?? null,
                     $isGeneral
                 );
             }
@@ -68,7 +68,7 @@ class Validator
     /**
      * Sprawdza czy podana wartosc jest liczba (is_numeric)
      */
-    public function required($key, $values, $customMessage = '', $isGeneral = false)
+    public function required($key, $values, $customMessage = null, $isGeneral = false)
     {
         if (!isset($values[$key])) {
 
@@ -86,7 +86,7 @@ class Validator
     /**
      * Sprawdza czy podana wartosc jest liczba (is_numeric)
      */
-    public function isNumber($key, $values, $customMessage = '', $isGeneral = false)
+    public function isNumber($key, $values, $customMessage = null, $isGeneral = false)
     {
         //jesli nie istnieje to ok; mogl nie byc wymagany
         if(!isset($values[$key])){
@@ -109,7 +109,7 @@ class Validator
     /**
      * Sprawdza czy liczba miesci sie w przedziale
      */
-    public function numberRange($key, $values, $customMessage = '', $isGeneral = false, $from = 'INF', $to = 'INF')
+    public function numberRange($key, $values, $customMessage = null, $isGeneral = false, $from = 'INF', $to = 'INF')
     {
         //jesli nie istnieje to ok; mogl nie byc wymagany
         if(!isset($values[$key])){
@@ -136,7 +136,7 @@ class Validator
     /**
      * Sprawdza czy podana wartosc jest ciagiem znakow z puli
      */
-    public function isEnum($key, $values, $customMessage = '', $isGeneral = false, $enums = [])
+    public function isEnum($key, $values, $customMessage = null, $isGeneral = false, $enums = [])
     {
         //jesli nie istnieje to ok; mogl nie byc wymagany
         if(!isset($values[$key])){
