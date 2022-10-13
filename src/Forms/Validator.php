@@ -52,7 +52,7 @@ class Validator
                     $values, 
                     $customMessages[$validation] ?? '',
                     $isGeneral,
-                    ...$validationArgs[$validation]
+                    $validationArgs[$validation]
                 );
             }else{
                 $this->$validation(
@@ -131,6 +131,23 @@ class Validator
         }
 
         return true;
+    }
+
+    /**
+     * Sprawdza czy podana wartosc jest ciagiem znakow z puli
+     */
+    public function isEnum($key, $values, $customMessage = '', $isGeneral = false, $enums = [])
+    {
+        //jesli nie istnieje to ok; mogl nie byc wymagany
+        if(!isset($values[$key])){
+            return true;
+        }
+
+        if(empty($enums)){
+            throw new \Exception('isEnum: Brak wartości do testu');
+        }
+
+        return in_array($values[$key], $enums);
     }
 
     public function getGeneralErrors()
