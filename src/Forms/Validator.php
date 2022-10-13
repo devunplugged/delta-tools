@@ -30,7 +30,7 @@ class Validator
     public function validate($values, $validationsArray )
     {
         if(!isset($validationsArray[0])){
-            throw new \Exception('Brak podanej wartosci do sprawdzenia');
+            throw new \Exception('Brak podanego klucza tablicy do sprawdzenia');
         }
     
         if(!isset($validationsArray[1])){
