@@ -90,64 +90,68 @@ class Validator
     /**
      * Sprawdza czy podana wartosc jest liczba (is_numeric)
      */
-    public function required($key, $values, $customMessage = null, $isGeneral = false)
+    public function required(string $key, array $values, ?string $customMessage = null, bool $isGeneral = false):bool
     {
-        if (!isset($values[$key])) {
-
-            if(!$isGeneral){
-                $this->addValidationError($key, $customMessage ?? "$key jest wartością wymaganą");
-            }else{
-                $this->generalErrors[] = $customMessage ?? "$key jest wartością wymaganą";
-            }
-            
-            return false;
+        if (isset($values[$key])) {
+            return true;
         }
-        return true;
+        
+        if(!$isGeneral){
+            $this->addValidationError($key, $customMessage ?? "$key jest wartością wymaganą");
+        }else{
+            $this->generalErrors[] = $customMessage ?? "$key jest wartością wymaganą";
+        }
+        
+        return false;
     }
 
     /**
      * Sprawdza czy podana wartosc jest liczba (is_numeric)
      */
-    public function isNumber($key, $values, $customMessage = null, $isGeneral = false)
+    public function isNumber(string $key, array $values, ?string $customMessage = null, bool $isGeneral = false):bool
     {
         //jesli nie istnieje to ok; mogl nie byc wymagany
         if(!isset($values[$key])){
             return true;
         }
 
-        if (!is_numeric($values[$key])) {
-
-            if(!$isGeneral){
-                $this->addValidationError($key, $customMessage ?? "$key musi być liczbą");
-            }else{
-                $this->generalErrors[] = $customMessage ??  "$key musi być liczbą";
-            }
-            
-            return false;
+        if (is_numeric($values[$key])) {
+            return true; 
         }
-        return true;
+
+        if(!$isGeneral){
+            $this->addValidationError($key, $customMessage ?? "$key musi być liczbą");
+        }else{
+            $this->generalErrors[] = $customMessage ??  "$key musi być liczbą";
+        }
+        
+        return false;
     }
 
     /**
      * Sprawdza czy liczba miesci sie w przedziale
      */
-    public function numberRange($key, $values, $customMessage = null, $isGeneral = false, $from = 'INF', $to = 'INF')
+    public function numberRange(string $key, array $values, ?string $customMessage = null, bool $isGeneral = false, array $range = ['INF','INF']):bool
     {
         //jesli nie istnieje to ok; mogl nie byc wymagany
         if(!isset($values[$key])){
             return true;
         }
 
+        if(!isset($range[0]) || !isset($range[1])){
+            throw new \Exception('Brak podanych zakresów do sprawdzenia');
+        }
+
         if (
-            ($from != 'INF' && $to == 'INF' && $values[$key] < $from) ||
-            ($from == 'INF' && $to != 'INF' && $values[$key] > $to) ||
-            ($from != 'INF' && $to != 'INF' && ($values[$key] > $to || $values[$key] < $from))
+            ($range[0] != 'INF' && $range[1] == 'INF' && $values[$key] < $range[0]) ||
+            ($range[0] == 'INF' && $range[1] != 'INF' && $values[$key] > $range[1]) ||
+            ($range[0] != 'INF' && $range[1] != 'INF' && ($values[$key] > $range[1] || $values[$key] < $range[0]))
         ) {
 
             if(!$isGeneral){
-                $this->addValidationError($key, $customMessage ?? "$key musi mieścić się w przedziale od $from do $to");
+                $this->addValidationError($key, $customMessage ?? "$key musi mieścić się w przedziale od $range[0] do $range[1]");
             }else{
-                $this->generalErrors[] = $customMessage ?? "$key musi mieścić się w przedziale od $from do $to";
+                $this->generalErrors[] = $customMessage ?? "$key musi mieścić się w przedziale od $range[0] do $range[1]";
             }
             return false;
         }
@@ -158,7 +162,7 @@ class Validator
     /**
      * Sprawdza czy podana wartosc jest ciagiem znakow z puli
      */
-    public function isEnum($key, $values, $customMessage = null, $isGeneral = false, $enums = [])
+    public function isEnum(string $key, array $values, ?string $customMessage = null, bool $isGeneral = false, array $enums = []):bool
     {
         //jesli nie istnieje to ok; mogl nie byc wymagany
         if(!isset($values[$key])){
@@ -169,23 +173,43 @@ class Validator
             throw new \Exception('isEnum: Brak wartości do testu');
         }
 
-        if(!in_array($values[$key], $enums)){
-            $allowed = '';
-            foreach($enums as $enum){
-                $allowed .= $enum.',';
-            }
-            $allowed = rtrim($allowed, ',');
-
-            if(!$isGeneral){
-                $this->addValidationError($key, $customMessage ?? "$key musi być jedną z dozwolonych wartości: $allowed");
-            }else{
-                $this->generalErrors[] = $customMessage ?? "$key musi być jedną z dozwolonych wartości: $allowed";
-            }
-            return false;
+        if(in_array($values[$key], $enums)){
+            return true;
         }
 
-        return true;
+        $allowed = '';
+        foreach($enums as $enum){
+            $allowed .= $enum.',';
+        }
+        $allowed = rtrim($allowed, ',');
+
+        if(!$isGeneral){
+            $this->addValidationError($key, $customMessage ?? "$key musi być jedną z dozwolonych wartości: $allowed");
+        }else{
+            $this->generalErrors[] = $customMessage ?? "$key musi być jedną z dozwolonych wartości: $allowed";
+        }
+
+        return false;
     }
+
+    /**
+     * Sprawdza czy podana wartość jest tablicą
+     */
+    public function isArray(string $key, array $values, ?string $customMessage = null, bool $isGeneral = false)
+    {
+        if(is_array($values[$key])){
+            return true;
+        }
+
+        if(!$isGeneral){
+            $this->addValidationError($key, $customMessage ?? "$key musi być tablicą");
+        }else{
+            $this->generalErrors[] = $customMessage ?? "$key musi być tablicą";
+        }
+
+        return false;
+    }
+
 
     public function getGeneralErrors()
     {
