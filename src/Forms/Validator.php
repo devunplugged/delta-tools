@@ -27,17 +27,18 @@ class Validator
      *      .
      * ]
      */
-    public function validate($values, $validationsArray )
+    public function validate(array $values, array $validationsArray )
     {
-        if(!isset($validationsArray[0])){
-            throw new \Exception('Brak podanego klucza tablicy do sprawdzenia');
-        }
-    
-        if(!isset($validationsArray[1])){
-            throw new \Exception('Brak podanej funkcji walidacyjnej');
-        }
-
         foreach($validationsArray as $validationElement){
+
+            if(!isset($validationElement[0])){
+                throw new \Exception('Brak podanego klucza tablicy do sprawdzenia');
+            }
+        
+            if(!isset($validationElement[1])){
+                throw new \Exception('Brak podanej funkcji walidacyjnej');
+            }
+
             $this->validateElement($values, ...$validationElement);
         }
     }
