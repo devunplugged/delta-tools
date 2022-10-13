@@ -21,7 +21,7 @@ class Validator
      * Uruchamia wiele walidacji dla wielu podanych zmiennych (kluczy tabeli $values)
      * np. validationsArray
      * [
-     *      ['supplier_id', 'required|isNumber', ['required' => 'supplier_id jest wymagane','isNumber' => 'supplier_id musi byc liczbą'], [], true]
+     *      ['supplier_id', 'required|isNumber', true, [], ['required' => 'supplier_id jest wymagane','isNumber' => 'supplier_id musi byc liczbą']]
      *      .
      *      .
      *      .
@@ -29,6 +29,14 @@ class Validator
      */
     public function validate($values, $validationsArray )
     {
+        if(!isset($validationsArray[0])){
+            throw new \Exception('Brak podanej wartosci do sprawdzenia');
+        }
+    
+        if(!isset($validationsArray[1])){
+            throw new \Exception('Brak podanej funkcji walidacyjnej');
+        }
+
         foreach($validationsArray as $validationElement){
             $this->validateElement($values, ...$validationElement);
         }
@@ -37,7 +45,7 @@ class Validator
     /**
      * Uruchamia wiele walidacji podanej wartosci tablicy $values
      */
-    public function validateElement($values, $key, $validations = '', $customMessages = [], $validationArgs = [], $isGeneral = false )
+    public function validateElement($values, $key, $validations = '', $isGeneral = false, $validationArgs = [], $customMessages = [] )
     {
         $validations = explode('|', $validations);
 
