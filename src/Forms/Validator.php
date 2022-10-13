@@ -147,7 +147,22 @@ class Validator
             throw new \Exception('isEnum: Brak wartości do testu');
         }
 
-        return in_array($values[$key], $enums);
+        if(!in_array($values[$key], $enums)){
+            $allowed = '';
+            foreach($enums as $enum){
+                $allowed .= $enum.',';
+            }
+            $allowed = rtrim($allowed, ',');
+
+            if(!$isGeneral){
+                $this->addValidationError($key, $customMessage ?? 'Ta wartośc nie jest jedną z dozwolonych: ' . $allowed);
+            }else{
+                $this->generalErrors[] = $customMessage ?? $key . ': Ta wartośc nie jest jedną z dozwolonych: ' . $allowed;
+            }
+            return false;
+        }
+
+        return true;
     }
 
     public function getGeneralErrors()
