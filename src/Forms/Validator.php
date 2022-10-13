@@ -73,9 +73,9 @@ class Validator
         if (!isset($values[$key])) {
 
             if(!$isGeneral){
-                $this->addValidationError($key, $customMessage ?? 'Ta wartość jest wymagana');
+                $this->addValidationError($key, $customMessage ?? "$key jest wartością wymaganą");
             }else{
-                $this->generalErrors[] = $customMessage ?? $key . ': Ta wartość jest wymagana';
+                $this->generalErrors[] = $customMessage ?? "$key jest wartością wymaganą";
             }
             
             return false;
@@ -96,9 +96,9 @@ class Validator
         if (!is_numeric($values[$key])) {
 
             if(!$isGeneral){
-                $this->addValidationError($key, $customMessage ?? 'Ta wartość powinna być liczbą');
+                $this->addValidationError($key, $customMessage ?? "$key musi być liczbą");
             }else{
-                $this->generalErrors[] = $customMessage ?? $key . ': Ta wartość powinna być liczbą';
+                $this->generalErrors[] = $customMessage ??  "$key musi być liczbą";
             }
             
             return false;
@@ -123,9 +123,9 @@ class Validator
         ) {
 
             if(!$isGeneral){
-                $this->addValidationError($key, $customMessage ?? 'Ta wartość powinna mieścić się w przedziale od ' . $from . ' do ' . $to);
+                $this->addValidationError($key, $customMessage ?? "$key musi mieścić się w przedziale od $from do $to");
             }else{
-                $this->generalErrors[] = $customMessage ?? $key . ': Ta wartość powinna mieścić się w przedziale od ' . $from . ' do ' . $to;
+                $this->generalErrors[] = $customMessage ?? "$key musi mieścić się w przedziale od $from do $to";
             }
             return false;
         }
@@ -155,9 +155,9 @@ class Validator
             $allowed = rtrim($allowed, ',');
 
             if(!$isGeneral){
-                $this->addValidationError($key, $customMessage ?? 'Ta wartośc nie jest jedną z dozwolonych: ' . $allowed);
+                $this->addValidationError($key, $customMessage ?? "$key musi być jedną z dozwolonych wartości: $allowed");
             }else{
-                $this->generalErrors[] = $customMessage ?? $key . ': Ta wartośc nie jest jedną z dozwolonych: ' . $allowed;
+                $this->generalErrors[] = $customMessage ?? "$key musi być jedną z dozwolonych wartości: $allowed";
             }
             return false;
         }
