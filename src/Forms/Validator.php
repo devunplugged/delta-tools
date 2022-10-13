@@ -19,12 +19,25 @@ class Validator
 
     /**
      * Uruchamia wiele walidacji dla wielu podanych zmiennych (kluczy tabeli $values)
+     * 
      * np. validationsArray
+     * 
      * [
-     *      ['supplier_id', 'required|isNumber', true, [], ['required' => 'supplier_id jest wymagane','isNumber' => 'supplier_id musi byc liczbą']]
-     *      .
-     *      .
-     *      .
+     * 
+     *      ['supplier_id', 'required|isNumber', true, [], ['required' => 'supplier_id jest wymagane','isNumber' => 'supplier_id musi byc liczbą']],
+     * 
+     *      ['type' , 'isEnum', true, ['isEnum' => ['long','short']], ['isEnum' => 'type musi być jedną z dozwolonych warotści']]
+     * 
+     * ]
+     * 
+     * Zazwyczaj wymagane jest podanie tylko dwóch elementów: klucza do sprawdzenia i metody walidacji, czasem wymagane jest tez podanie argumentow dla metody walidacyjnej jak np przy isEnum
+     * 
+     * [
+     * 
+     *      ['supplier_id', 'required|isNumber'],
+     * 
+     *      ['type' , 'isEnum', false, ['isEnum' => ['long','short']]]
+     * 
      * ]
      */
     public function validate(array $values, array $validationsArray )
