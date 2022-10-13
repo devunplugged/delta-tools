@@ -6,7 +6,7 @@ class Validator
 {
     private $generalErrors = [];
     private $validationErrors = [];
-    protected $allowedValidations = ['required', 'isNumber', 'numberRange', 'isEnum'];
+    protected $allowedValidations = ['required', 'isNumber', 'numberRange', 'isEnum', 'isArray'];
    
     public function once($once)
     {
