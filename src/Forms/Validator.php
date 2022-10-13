@@ -30,14 +30,14 @@ class Validator
     public function validate($values, $validationsArray )
     {
         foreach($validationsArray as $validationElement){
-            $this->validateElement($validationElement[0], $values, $validationElement[1], $validationElement[2], $validationElement[3], $validationElement[4]);
+            $this->validateElement($values, ...$validationElement);
         }
     }
 
     /**
      * Uruchamia wiele walidacji podanej wartosci tablicy $values
      */
-    public function validateElement($key, $values, $validations = '', $customMessages = [], $validationArgs = [], $isGeneral = false )
+    public function validateElement($values, $key, $validations = '', $customMessages = [], $validationArgs = [], $isGeneral = false )
     {
         $validations = explode('|', $validations);
 
