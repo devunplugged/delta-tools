@@ -7,6 +7,10 @@ namespace Composer\Autoload;
 class ComposerStaticInit1ccbcffa38c20adcc0727c9c0297afd1
 {
     public static $prefixLengthsPsr4 = array (
+        'P' => 
+        array (
+            'Psr\\Log\\' => 8,
+        ),
         'D' => 
         array (
             'DeltaTools\\' => 11,
@@ -14,6 +18,10 @@ class ComposerStaticInit1ccbcffa38c20adcc0727c9c0297afd1
     );
 
     public static $prefixDirsPsr4 = array (
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
+        ),
         'DeltaTools\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',

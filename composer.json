@@ -14,5 +14,7 @@
             "email": "66313338+devunplugged@users.noreply.github.com"
         }
     ],
-    "require": {}
+    "require": {
+        "psr/log": "^1.1"
+    }
 }
